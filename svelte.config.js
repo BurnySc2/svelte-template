@@ -2,12 +2,12 @@ import adapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 const config = {
-	preprocess: vitePreprocess(),
+	// preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
 			pages: 'dist',
 			assets: 'dist',
-			fallback: null,
+			fallback: undefined,
 			// fallback: 'index.html',
 			precompress: false,
 			strict: true,
