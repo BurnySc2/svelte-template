@@ -4,27 +4,48 @@ on:
   push:
     branches: [master]
 
-permissions:
-  contents: write
-
 jobs:
-  deploy:
+  build_site:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
+
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm i
 
-      - name: Build project
-        run: npm run build
+      - name: build
+        env:
+          BASE_PATH: '/${{ github.event.repository.name }}'
+        run: |
+          npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: build
+          # this should match the `pages` option in your adapter-static options
+          path: 'build/'
+
+  deploy:
+    needs: build_site
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
