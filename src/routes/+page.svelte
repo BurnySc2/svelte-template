@@ -65,9 +65,9 @@
 			Add
 		</button>
 	</div>
-	{#if filtered_todos.length}
+	{#if todos.length}
 		<div class="text-gray-500">
-			{filtered_todos.filter((t) => t.done).length}/{filtered_todos.length} completed
+			{todos.filter((t) => t.done).length}/{todos.length} completed
 		</div>
 	{:else}
 		<div class="text-gray-500">Add a todo to get started</div>
