@@ -43,7 +43,7 @@
 {#snippet choose_filter(filter_name: FilterType)}
 	<button
 		class={[
-			'rounded-lg border border-gray-200 px-4 py-2 transition-colors hover:bg-gray-100',
+			'rounded-lg border border-gray-200 px-4 py-2 transition-color',
 			{ 'border-blue-600 bg-blue-600 text-white': filter_name === active_filter }
 		]}
 		onclick={() => {
