@@ -12,14 +12,12 @@ describe('todo functionality', () => {
 	let removed_id: number | null = null
 
 	const toggle_todo = (id: number) => {
-		todos = todos.map(todo =>
-			todo.id === id ? {...todo, done: !todo.done} : todo
-		)
+		todos = todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
 	}
 
 	const remove_todo = (id: number) => {
 		removed_id = id
-		todos = todos.filter(todo => todo.id !== id)
+		todos = todos.filter((todo) => todo.id !== id)
 	}
 
 	beforeEach(() => {
@@ -32,16 +30,16 @@ describe('todo functionality', () => {
 
 	it('toggles todo completion status', () => {
 		toggle_todo(1)
-		expect(todos.find(t => t.id === 1)?.done).toBe(true)
-		
+		expect(todos.find((t) => t.id === 1)?.done).toBe(true)
+
 		toggle_todo(1)
-		expect(todos.find(t => t.id === 1)?.done).toBe(false)
+		expect(todos.find((t) => t.id === 1)?.done).toBe(false)
 	})
 
 	it('removes todo item', () => {
 		remove_todo(2)
 		expect(todos.length).toBe(1)
 		expect(removed_id).toBe(2)
-		expect(todos.find(t => t.id === 2)).toBeUndefined()
+		expect(todos.find((t) => t.id === 2)).toBeUndefined()
 	})
 })
