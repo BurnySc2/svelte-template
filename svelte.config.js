@@ -3,7 +3,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 // See https://svelte.dev/docs/kit/adapter-static#GitHub-Pages
 const config = {
-	// preprocess: vitePreprocess(),
+	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
 			fallback: '404.html',
