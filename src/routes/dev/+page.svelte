@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { my_counter_writable } from '$lib/persistent-storage.svelte'
-	import CounterState from '../../components/counter-state/CounterState.svelte'
-	import CounterWritable from '../../components/counter-writeable/CounterWritable.svelte'
+	import CounterState from '$lib/components/counter-state/CounterState.svelte'
+	import CounterWritable from '$lib/components/counter-writeable/CounterWritable.svelte'
 
 	// Only start rendering when javascript has loaded
 	let page_ready = $state(false)

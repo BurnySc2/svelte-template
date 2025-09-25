@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import type { TodoItem } from './components/types'
+import type { TodoItem } from '$lib/components/types'
 
 describe('sum test', () => {
 	it('adds 1 + 2 to equal 3', () => {
