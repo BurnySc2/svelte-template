@@ -26,12 +26,15 @@ npm run dev -- --open
 ```
 
 ### Update typescript types
+
 There may be a problem keeping the types up to date with the backend api.
 
 While backend is running under, you can run
+
 ```sh
 npx openapi-typescript http://localhost:8000/schema/openapi.json --output src/lib/types/api.ts
 ```
+
 to update the types of the endpoints.
 
 ## Building
