@@ -52,6 +52,7 @@
 	>
 {/snippet}
 
+<div>Test</div>
 <main class="mx-auto flex max-w-2xl flex-col items-center gap-6 p-6">
 	<h1 class="text-3xl font-bold text-gray-800">My ToDo App</h1>
 	<div class="flex w-full gap-2">
