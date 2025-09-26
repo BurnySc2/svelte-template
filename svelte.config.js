@@ -6,12 +6,10 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
-			fallback: undefined,
-			precompress: false,
-			strict: true
+			fallback: '404.html'
 		}),
 		paths: {
-			base: process.env.BASE_PATH || ''
+			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
 		}
 	}
 }
