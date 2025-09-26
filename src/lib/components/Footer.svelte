@@ -6,7 +6,7 @@
 				href="https://github.com/BurnySc2/svelte-template"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200"
+				class="font-medium text-blue-600 transition-colors duration-200 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
 			>
 				GitHub
 			</a>
