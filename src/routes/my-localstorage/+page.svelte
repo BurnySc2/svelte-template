@@ -11,53 +11,51 @@
 </script>
 
 {#if page_ready}
-	<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-		<div class="max-w-4xl mx-auto space-y-12">
+	<div class="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-4xl space-y-12">
 			<!-- Page Header -->
 			<div class="text-center">
-				<h1 class="text-4xl font-bold text-gray-900 mb-2">
-					Local Storage Examples
-				</h1>
-				<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+				<h1 class="mb-2 text-4xl font-bold text-gray-900">Local Storage Examples</h1>
+				<p class="mx-auto max-w-2xl text-xl text-gray-600">
 					Demonstrating persistent state with Svelte 5 $state and writable stores
 				</p>
 			</div>
 
 			<!-- $state Counter Section -->
-			<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-				<div class="px-8 py-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-200">
-					<h2 class="text-2xl font-bold text-gray-900 flex items-center">
-						<div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+			<div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+				<div class="border-b border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6">
+					<h2 class="flex items-center text-2xl font-bold text-gray-900">
+						<div class="mr-3 h-2 w-2 rounded-full bg-blue-500"></div>
 						$state (Reactive State)
 					</h2>
-					<p class="text-gray-600 mt-1">Direct state management with automatic localStorage sync</p>
+					<p class="mt-1 text-gray-600">Direct state management with automatic localStorage sync</p>
 				</div>
-				
-				<div class="p-8 space-y-6">
-					<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+
+				<div class="space-y-6 p-8">
+					<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
 						<button
-							class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 active:bg-blue-800"
+							class="transform rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none active:bg-blue-800"
 							onclick={() => {
 								my_counter_state.value += 1
 							}}
 						>
 							<span class="flex items-center gap-2">
-								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
 								</svg>
 								Increment Counter
 							</span>
 						</button>
-						
+
 						<div class="text-center">
-							<div class="text-3xl font-bold text-blue-600 bg-blue-50 px-4 py-2 rounded-lg">
+							<div class="rounded-lg bg-blue-50 px-4 py-2 text-3xl font-bold text-blue-600">
 								Value: {my_counter_state.value}
 							</div>
-							<p class="text-sm text-gray-500 mt-1">Persisted in localStorage</p>
+							<p class="mt-1 text-sm text-gray-500">Persisted in localStorage</p>
 						</div>
 					</div>
-					
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+
+					<div class="grid grid-cols-1 gap-6 border-t border-gray-100 pt-4 md:grid-cols-2">
 						<CounterState />
 						<CounterState />
 					</div>
@@ -65,40 +63,40 @@
 			</div>
 
 			<!-- Writable Store Section -->
-			<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-				<div class="px-8 py-6 bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
-					<h2 class="text-2xl font-bold text-gray-900 flex items-center">
-						<div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+			<div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+				<div class="border-b border-green-200 bg-gradient-to-r from-green-50 to-emerald-50 px-8 py-6">
+					<h2 class="flex items-center text-2xl font-bold text-gray-900">
+						<div class="mr-3 h-2 w-2 rounded-full bg-green-500"></div>
 						Writable Store
 					</h2>
-					<p class="text-gray-600 mt-1">Svelte store pattern with localStorage synchronization</p>
+					<p class="mt-1 text-gray-600">Svelte store pattern with localStorage synchronization</p>
 				</div>
-				
-				<div class="p-8 space-y-6">
-					<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+
+				<div class="space-y-6 p-8">
+					<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
 						<button
-							class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 active:bg-green-800"
+							class="transform rounded-lg bg-green-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-green-700 focus:ring-4 focus:ring-green-300 focus:outline-none active:bg-green-800"
 							onclick={() => {
 								$my_counter_writable += 1
 							}}
 						>
 							<span class="flex items-center gap-2">
-								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
 								</svg>
 								Increment Store
 							</span>
 						</button>
-						
+
 						<div class="text-center">
-							<div class="text-3xl font-bold text-green-600 bg-green-50 px-4 py-2 rounded-lg">
+							<div class="rounded-lg bg-green-50 px-4 py-2 text-3xl font-bold text-green-600">
 								Value: {$my_counter_writable}
 							</div>
-							<p class="text-sm text-gray-500 mt-1">Synced via writable store</p>
+							<p class="mt-1 text-sm text-gray-500">Synced via writable store</p>
 						</div>
 					</div>
-					
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+
+					<div class="grid grid-cols-1 gap-6 border-t border-gray-100 pt-4 md:grid-cols-2">
 						<CounterWritable />
 						<CounterWritable />
 					</div>
@@ -106,34 +104,40 @@
 			</div>
 
 			<!-- Comparison Section -->
-			<div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-8 border border-purple-200">
-				<h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">
-					Comparison: $state vs Writable Store
-				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<div class="rounded-xl border border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 p-8">
+				<h2 class="mb-4 text-center text-2xl font-bold text-gray-900">Comparison: $state vs Writable Store</h2>
+				<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 					<div class="space-y-3">
-						<h3 class="font-semibold text-purple-800 flex items-center">
-							<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-								<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+						<h3 class="flex items-center font-semibold text-purple-800">
+							<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"
+								></path>
 							</svg>
 							$state Benefits
 						</h3>
-						<ul class="text-sm text-purple-700 space-y-1">
+						<ul class="space-y-1 text-sm text-purple-700">
 							<li>• Direct reactivity without stores</li>
 							<li>• Simpler syntax for component-local state</li>
 							<li>• Automatic localStorage sync</li>
 							<li>• Fine-grained reactivity</li>
 						</ul>
 					</div>
-					
+
 					<div class="space-y-3">
-						<h3 class="font-semibold text-emerald-800 flex items-center">
-							<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-								<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+						<h3 class="flex items-center font-semibold text-emerald-800">
+							<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"
+								></path>
 							</svg>
 							Writable Store Benefits
 						</h3>
-						<ul class="text-sm text-emerald-700 space-y-1">
+						<ul class="space-y-1 text-sm text-emerald-700">
 							<li>• Share state across components</li>
 							<li>• Subscribe to changes anywhere</li>
 							<li>• Traditional Svelte pattern</li>
