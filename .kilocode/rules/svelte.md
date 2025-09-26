@@ -56,3 +56,11 @@ Keep logic at the top and html structure at the bottom.
     })
 </script>
 ```
+
+## Onclick
+
+The `on:click` is now `onclick` and the `preventDefault` should be called inside the handler function. Other events are similar.
+```
+<button onclick={(e) => {my_handler(e)}}>
+```
+
