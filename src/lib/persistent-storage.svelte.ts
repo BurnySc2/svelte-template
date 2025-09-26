@@ -18,10 +18,6 @@ export class LocalStorageState<T> {
 				localStorage.setItem(this.key, this.serialize(this.#value))
 			}
 		}
-
-		$effect(() => {
-			localStorage.setItem(this.key, this.serialize(this.#value))
-		})
 	}
 
 	get value(): T {
@@ -72,6 +68,8 @@ export const use_local_storage_writeable = <T>(key: string, value: T) => {
 
 	return my_writable
 }
+
+export const my_counter_state = use_local_storage_state('my_counter_state', 0)
 
 // Declare global variables in this file to access them globally via `$my_var`
 // Update them via `$my_var += 1` or `$my_var = new_value`

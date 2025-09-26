@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { my_counter_writable } from '$lib/persistent-storage.svelte'
+	import { my_counter_state, my_counter_writable } from '$lib/persistent-storage.svelte'
 	import CounterState from '$lib/components/counter-state/CounterState.svelte'
 	import CounterWritable from '$lib/components/counter-writeable/CounterWritable.svelte'
 
@@ -16,6 +16,13 @@
 			<legend class="relative rounded border-2 border-gray-400 bg-white px-3 text-lg font-bold"
 				>Counter using $state</legend
 			>
+			<button
+				class="rounded border-2 border-black p-2"
+				onclick={() => {
+					my_counter_state.value += 1
+				}}>Increment</button
+			>
+			<CounterState />
 			<CounterState />
 		</fieldset>
 		<fieldset class="rounded border-2 border-gray-400 p-6">
