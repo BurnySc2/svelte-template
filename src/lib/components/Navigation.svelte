@@ -31,6 +31,9 @@
 			href={resolve('/clipboard')}
 			class="transition-colors hover:text-gray-300 {isActive('/clipboard') ? 'font-bold' : ''}">Clipboard</a
 		>
-		<a href={resolve('/download')} class="transition-colors hover:text-gray-300 {isActive('/download') ? 'font-bold' : ''}">Download</a>
+		<a
+			href={resolve('/download')}
+			class="transition-colors hover:text-gray-300 {isActive('/download') ? 'font-bold' : ''}">Download</a
+		>
 	</div>
 </nav>

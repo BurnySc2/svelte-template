@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { my_counter_state, my_counter_writable } from '$lib/persistent-storage.svelte'
+	import { my_temporary_counter } from '$lib/temporary-storage.svelte'
 	import CounterState from '$lib/components/counter-state/CounterState.svelte'
 	import CounterWritable from '$lib/components/counter-writeable/CounterWritable.svelte'
 
@@ -19,6 +20,42 @@
 				<p class="mx-auto max-w-2xl text-xl text-gray-600">
 					Demonstrating persistent state with Svelte 5 $state and writable stores
 				</p>
+			</div>
+
+			<!-- Temporary Counter Section -->
+			<div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+				<div class="border-b border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-8 py-6">
+					<h2 class="flex items-center text-2xl font-bold text-gray-900">
+						<div class="mr-3 h-2 w-2 rounded-full bg-orange-500"></div>
+						Temporary Counter (In-memory only)
+					</h2>
+					<p class="mt-1 text-gray-600">Counter that resets on page refresh - not persisted to localStorage</p>
+				</div>
+
+				<div class="space-y-6 p-8">
+					<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
+						<button
+							class="transform rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 focus:outline-none active:bg-orange-800"
+							onclick={() => {
+								my_temporary_counter.value += 1
+							}}
+						>
+							<span class="flex items-center gap-2">
+								<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+								</svg>
+								Increment Temporary Counter
+							</span>
+						</button>
+
+						<div class="text-center">
+							<div class="rounded-lg bg-orange-50 px-4 py-2 text-3xl font-bold text-orange-600">
+								Value: {my_temporary_counter.value}
+							</div>
+							<p class="mt-1 text-sm text-gray-500">Lost on page refresh</p>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<!-- $state Counter Section -->

@@ -11,14 +11,17 @@ export class LocalStorageState<T> {
 		this.key = key
 		this.#value = value
 		if (browser) {
-			const item = localStorage.getItem(key)
+			const item = localStorage.getItem(this.key)
 			if (item) {
 				this.#value = this.deserialize(item)
 			} else {
 				localStorage.setItem(this.key, this.serialize(this.#value))
 			}
 		}
+		this.async_constructor()
 	}
+
+	async async_constructor(): Promise<void> {}
 
 	get value(): T {
 		return this.#value
