@@ -1,8 +1,8 @@
-export class TemporaryState<T> {
+class TemporaryState<T> {
 	#value = $state<T>() as T
 
-	constructor(value: T) {
-		this.#value = value
+	constructor(default_value: T) {
+		this.#value = default_value
 	}
 
 	get value(): T {
@@ -14,8 +14,8 @@ export class TemporaryState<T> {
 	}
 }
 
-export const use_temporary_state = <T>(value: T) => {
-	return new TemporaryState<T>(value)
+export const use_temporary_state = <T>(default_value: T) => {
+	return new TemporaryState<T>(default_value)
 }
 
 export const my_temporary_counter = use_temporary_state(0)

@@ -3,13 +3,13 @@ import { browser } from '$app/environment'
 
 // A simple class that keeps a state in sync with localStorage
 // Should only be used inside one component
-export class LocalStorageState<T> {
+class LocalStorageState<T> {
 	key = ''
 	#value = $state<T>() as T
 
-	constructor(key: string, value: T) {
+	constructor(key: string, default_value: T) {
 		this.key = key
-		this.#value = value
+		this.#value = default_value
 		if (browser) {
 			const item = localStorage.getItem(this.key)
 			if (item) {
@@ -42,8 +42,8 @@ export class LocalStorageState<T> {
 	}
 }
 
-export const use_local_storage_state = <T>(key: string, value: T) => {
-	return new LocalStorageState<T>(key, value)
+export const use_local_storage_state = <T>(key: string, default_value: T) => {
+	return new LocalStorageState<T>(key, default_value)
 }
 
 // A simple function to initialize a writable that can be used in multiple components
