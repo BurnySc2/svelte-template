@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-
 	let { children } = $props()
 	let auth_status: { authenticated: boolean; user: string | null } = $state({ authenticated: false, user: null })
 	let is_loading = $state(true)

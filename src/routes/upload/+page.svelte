@@ -1,18 +1,31 @@
 <script lang="ts">
-	import { browser } from '$app/environment'
-
 	let { children } = $props()
 
 	// Single file upload state
 	let single_file_input = $state<HTMLInputElement | null>(null)
 	let single_file = $state<File | null>(null)
-	let single_file_meta = $state<any>(null)
+	let single_file_meta = $state<{
+		name: string
+		size: string
+		type: string
+		last_modified: string
+		size_bytes: number
+	} | null>(null)
 	let single_file_error = $state<string | null>(null)
 
 	// Multiple files upload state
 	let multiple_files_input = $state<HTMLInputElement | null>(null)
 	let multiple_files = $state<FileList | null>(null)
-	let multiple_files_meta = $state<any[]>([])
+	let multiple_files_meta = $state<
+		{
+			id: number
+			name: string
+			size: string
+			type: string
+			last_modified: string
+			size_bytes: number
+		}[]
+	>([])
 	let multiple_files_error = $state<string | null>(null)
 
 	// Drag and drop state
@@ -277,7 +290,7 @@
 					<p class="mb-1 text-sm font-medium text-gray-900">
 						{drag_over_multiple ? 'Drop files here' : 'Click to select multiple files'}
 					</p>
-					<p class="text-xs text-gray-500">Select multiple filesr</p>
+					<p class="text-xs text-gray-500">Select multiple files</p>
 				</div>
 
 				<input
@@ -308,7 +321,7 @@
 						</div>
 
 						<div class="space-y-2">
-							{#each multiple_files_meta as file}
+							{#each multiple_files_meta as file (file.id)}
 								<div class="flex items-center justify-between rounded border bg-white p-2 text-sm">
 									<div class="flex items-center truncate">
 										<div class="mr-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded bg-gray-100">

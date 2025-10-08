@@ -64,7 +64,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each items as item}
+			{#each items as item (item.id)}
 				<tr class="hover:bg-gray-50">
 					<td class="border border-gray-300 px-4 py-2">{item.id}</td>
 					<td
@@ -92,7 +92,7 @@
 
 <h2 class="p-8 text-xl font-semibold">Flex Layout Example</h2>
 <div class="space-y-4 p-8">
-	{#each items as item}
+	{#each items as item (item.id)}
 		<div class="flex items-center space-x-4 rounded border border-gray-300 p-4 hover:bg-gray-50">
 			<div class="w-12 text-center">{item.id}</div>
 			<div
@@ -121,7 +121,7 @@
 <h2 class="p-8 text-xl font-semibold">Grid Layout Example</h2>
 <div class="p-8">
 	<div class="grid grid-cols-4 gap-4">
-		{#each items as item}
+		{#each items as item (item.id)}
 			<div class="rounded border border-gray-300 p-4 hover:bg-gray-50">
 				<div class="mb-1 text-center font-medium">{item.id}</div>
 				<div

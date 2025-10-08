@@ -6,7 +6,7 @@
 
 	// Only start rendering when javascript has loaded
 	let page_ready = $state(false)
-	$effect(() => {
+	$effect.pre(() => {
 		page_ready = true
 	})
 </script>

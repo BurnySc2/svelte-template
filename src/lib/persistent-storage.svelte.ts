@@ -55,7 +55,7 @@ export const use_local_storage_state = <T>(key: string, default_value: T) => {
 // while keeping the value in sync with localStorage
 export const use_local_storage_writeable = <T>(key: string, value: T) => {
 	// Initialize the store
-	let my_writable = writable<T>(value)
+	const my_writable = writable<T>(value)
 
 	// Load value from localStorage
 	if (browser) {

@@ -11,7 +11,6 @@
 	// Copy to clipboard - main function
 	const copy_text = async (text: string) => {
 		if (!browser) {
-			status = 'Not in browser'
 			return
 		}
 
@@ -29,7 +28,6 @@
 	// Paste from clipboard - main function
 	const paste_text = async () => {
 		if (!browser) {
-			status = 'Not in browser'
 			return
 		}
 
