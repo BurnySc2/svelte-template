@@ -5,6 +5,7 @@
 	import CounterWritable from '$lib/components/counter-writeable/CounterWritable.svelte'
 
 	// Only start rendering when javascript has loaded
+	// eslint-disable-next-line svelte/prefer-writable-derived
 	let page_ready = $state(false)
 	$effect.pre(() => {
 		page_ready = true

@@ -3,6 +3,7 @@
 
 	// Single file upload state
 	let single_file_input = $state<HTMLInputElement | null>(null)
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let single_file = $state<File | null>(null)
 	let single_file_meta = $state<{
 		name: string
@@ -15,6 +16,7 @@
 
 	// Multiple files upload state
 	let multiple_files_input = $state<HTMLInputElement | null>(null)
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let multiple_files = $state<FileList | null>(null)
 	let multiple_files_meta = $state<
 		{
@@ -195,6 +197,8 @@
 
 				<!-- Upload button area -->
 				<div
+					role="button"
+					tabindex="0"
 					class="cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-colors"
 					class:border-blue-300={drag_over_single}
 					class:bg-blue-50={drag_over_single}
@@ -203,6 +207,13 @@
 					ondragleave={(e) => handle_drag_leave(e, 'single')}
 					ondrop={(e) => handle_drop(e, 'single')}
 					onclick={() => single_file_input?.click()}
+					onkeydown={(e) => {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault()
+							single_file_input?.click()
+						}
+					}}
+					aria-label={drag_over_single ? 'Drop file here' : 'Click to upload or drag file'}
 				>
 					<svg class="mx-auto mb-3 h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path
@@ -270,6 +281,8 @@
 
 				<!-- Upload button area -->
 				<div
+					role="button"
+					tabindex="0"
 					class="cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-colors"
 					class:border-green-300={drag_over_multiple}
 					class:bg-green-50={drag_over_multiple}
@@ -278,6 +291,13 @@
 					ondragleave={(e) => handle_drag_leave(e, 'multiple')}
 					ondrop={(e) => handle_drop(e, 'multiple')}
 					onclick={() => multiple_files_input?.click()}
+					onkeydown={(e) => {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault()
+							multiple_files_input?.click()
+						}
+					}}
+					aria-label={drag_over_multiple ? 'Drop files here' : 'Click to select multiple files'}
 				>
 					<svg class="mx-auto mb-3 h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path

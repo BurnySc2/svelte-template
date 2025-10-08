@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths'
+
 	let download_link: HTMLAnchorElement
 
 	const generate_sample_file = (e: MouseEvent) => {
@@ -27,5 +29,5 @@
 		Download Sample File
 	</button>
 
-	<a bind:this={download_link} style="display: none;"></a>
+	<a bind:this={download_link} style="display: none;" href={resolve('/')} aria-label="Hidden download link"></a>
 </main>
