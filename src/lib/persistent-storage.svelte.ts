@@ -1,4 +1,4 @@
-import { writable, get } from 'svelte/store'
+import { writable } from 'svelte/store'
 import { browser } from '$app/environment'
 
 // A simple class that keeps a state in sync with localStorage
@@ -14,11 +14,19 @@ class LocalStorageState<T> {
 			const item = localStorage.getItem(this.key)
 			if (item) {
 				this.#value = this.deserialize(item)
-			} else {
-				localStorage.setItem(this.key, this.serialize(this.#value))
 			}
 		}
 		this.async_constructor()
+
+		// Requires effect.root wrapper so that it can be initialized outside of a component
+		$effect.root(() => {
+			$effect(() => {
+				// Use this instead of setter because it uses observer pattern for mutations on array/object (push or splice)
+				if (browser) {
+					localStorage.setItem(this.key, this.serialize(this.#value))
+				}
+			})
+		})
 	}
 
 	async async_constructor(): Promise<void> {}
@@ -29,9 +37,6 @@ class LocalStorageState<T> {
 
 	set value(new_value: T) {
 		this.#value = new_value
-		if (browser) {
-			localStorage.setItem(this.key, this.serialize(this.#value))
-		}
 	}
 
 	serialize(value: T): string {
@@ -76,4 +81,5 @@ export const my_counter_state = use_local_storage_state('my_counter_state', 0)
 
 // Declare global variables in this file to access them globally via `$my_var`
 // Update them via `$my_var += 1` or `$my_var = new_value`
+// Array and object mutations do not work! You will need to set the value for it to update in localStorage
 export const my_counter_writable = use_local_storage_writeable('my_counter_writeable', 0)
