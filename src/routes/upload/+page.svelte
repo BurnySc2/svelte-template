@@ -1,76 +1,153 @@
 <script lang="ts">
-	let { children } = $props()
+let { children } = $props()
 
-	// Single file upload state
-	let single_file_input = $state<HTMLInputElement | null>(null)
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	let single_file = $state<File | null>(null)
-	let single_file_meta = $state<{
+// Single file upload state
+let single_file_input = $state<HTMLInputElement | null>(null)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let single_file = $state<File | null>(null)
+let single_file_meta = $state<{
+	name: string
+	size: string
+	type: string
+	last_modified: string
+	size_bytes: number
+} | null>(null)
+let single_file_error = $state<string | null>(null)
+
+// Multiple files upload state
+let multiple_files_input = $state<HTMLInputElement | null>(null)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let multiple_files = $state<FileList | null>(null)
+let multiple_files_meta = $state<
+	{
+		id: number
 		name: string
 		size: string
 		type: string
 		last_modified: string
 		size_bytes: number
-	} | null>(null)
-	let single_file_error = $state<string | null>(null)
+	}[]
+>([])
+let multiple_files_error = $state<string | null>(null)
 
-	// Multiple files upload state
-	let multiple_files_input = $state<HTMLInputElement | null>(null)
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	let multiple_files = $state<FileList | null>(null)
-	let multiple_files_meta = $state<
-		{
-			id: number
-			name: string
-			size: string
-			type: string
-			last_modified: string
-			size_bytes: number
-		}[]
-	>([])
-	let multiple_files_error = $state<string | null>(null)
+// Drag and drop state
+let drag_over_single = $state(false)
+let drag_over_multiple = $state(false)
 
-	// Drag and drop state
-	let drag_over_single = $state(false)
-	let drag_over_multiple = $state(false)
+// File utilities
+const format_file_size = (bytes: number): string => {
+	if (bytes === 0) return "0 Bytes"
+	const k = 1024
+	const sizes = ["Bytes", "KB", "MB", "GB"]
+	const i = Math.floor(Math.log(bytes) / Math.log(k))
+	return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
+}
 
-	// File utilities
-	const format_file_size = (bytes: number): string => {
-		if (bytes === 0) return '0 Bytes'
-		const k = 1024
-		const sizes = ['Bytes', 'KB', 'MB', 'GB']
-		const i = Math.floor(Math.log(bytes) / Math.log(k))
-		return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+const get_file_type = (file: File): string => {
+	if (file.type) return file.type
+	const ext = file.name.split(".").pop()?.toLowerCase() || ""
+	const type_map: Record<string, string> = {
+		txt: "text/plain",
+		html: "text/html",
+		css: "text/css",
+		js: "application/javascript",
+		json: "application/json",
+		png: "image/png",
+		jpg: "image/jpeg",
+		gif: "image/gif",
+		pdf: "application/pdf",
+		zip: "application/zip",
+	}
+	return type_map[ext] || "application/octet-stream"
+}
+
+// Single file handlers
+const handle_single_file_select = (event: Event) => {
+	const target = event.target as HTMLInputElement
+	const file = target.files?.[0]
+
+	if (!file) {
+		single_file_error = "No file selected"
+		return
 	}
 
-	const get_file_type = (file: File): string => {
-		if (file.type) return file.type
-		const ext = file.name.split('.').pop()?.toLowerCase() || ''
-		const type_map: Record<string, string> = {
-			txt: 'text/plain',
-			html: 'text/html',
-			css: 'text/css',
-			js: 'application/javascript',
-			json: 'application/json',
-			png: 'image/png',
-			jpg: 'image/jpeg',
-			gif: 'image/gif',
-			pdf: 'application/pdf',
-			zip: 'application/zip'
-		}
-		return type_map[ext] || 'application/octet-stream'
+	single_file = file
+	single_file_error = null
+	single_file_meta = {
+		name: file.name,
+		size: format_file_size(file.size),
+		type: get_file_type(file),
+		last_modified: new Date(file.lastModified).toLocaleString(),
+		size_bytes: file.size,
+	}
+}
+
+const clear_single_file = () => {
+	single_file = null
+	single_file_meta = null
+	single_file_error = null
+	if (single_file_input) {
+		single_file_input.value = ""
+	}
+}
+
+// Multiple files handlers
+const handle_multiple_files_select = (event: Event) => {
+	const target = event.target as HTMLInputElement
+	const files_list = target.files
+
+	if (!files_list || files_list.length === 0) {
+		multiple_files_error = "No files selected"
+		return
 	}
 
-	// Single file handlers
-	const handle_single_file_select = (event: Event) => {
-		const target = event.target as HTMLInputElement
-		const file = target.files?.[0]
+	multiple_files = files_list
+	multiple_files_error = null
+	multiple_files_meta = Array.from(files_list).map((file, index) => ({
+		id: index,
+		name: file.name,
+		size: format_file_size(file.size),
+		type: get_file_type(file),
+		last_modified: new Date(file.lastModified).toLocaleString(),
+		size_bytes: file.size,
+	}))
+}
 
-		if (!file) {
-			single_file_error = 'No file selected'
-			return
-		}
+const clear_multiple_files = () => {
+	multiple_files = null
+	multiple_files_meta = []
+	multiple_files_error = null
+	if (multiple_files_input) {
+		multiple_files_input.value = ""
+	}
+}
 
+// Drag and drop handlers
+const handle_drag_over = (e: DragEvent, target: "single" | "multiple") => {
+	e.preventDefault()
+	e.stopPropagation()
+	if (target === "single") drag_over_single = true
+	else drag_over_multiple = true
+}
+
+const handle_drag_leave = (e: DragEvent, target: "single" | "multiple") => {
+	e.preventDefault()
+	e.stopPropagation()
+	if (target === "single") drag_over_single = false
+	else drag_over_multiple = false
+}
+
+const handle_drop = (e: DragEvent, target: "single" | "multiple") => {
+	e.preventDefault()
+	e.stopPropagation()
+
+	const dt = e.dataTransfer
+	if (!dt || !dt.files || dt.files.length === 0) return
+
+	const files = dt.files
+
+	if (target === "single" && files.length === 1) {
+		const file = files[0]
 		single_file = file
 		single_file_error = null
 		single_file_meta = {
@@ -78,108 +155,31 @@
 			size: format_file_size(file.size),
 			type: get_file_type(file),
 			last_modified: new Date(file.lastModified).toLocaleString(),
-			size_bytes: file.size
+			size_bytes: file.size,
 		}
-	}
-
-	const clear_single_file = () => {
-		single_file = null
-		single_file_meta = null
-		single_file_error = null
-		if (single_file_input) {
-			single_file_input.value = ''
-		}
-	}
-
-	// Multiple files handlers
-	const handle_multiple_files_select = (event: Event) => {
-		const target = event.target as HTMLInputElement
-		const files_list = target.files
-
-		if (!files_list || files_list.length === 0) {
-			multiple_files_error = 'No files selected'
-			return
-		}
-
-		multiple_files = files_list
+		drag_over_single = false
+	} else if (target === "multiple") {
+		multiple_files = files
 		multiple_files_error = null
-		multiple_files_meta = Array.from(files_list).map((file, index) => ({
+		multiple_files_meta = Array.from(files).map((file, index) => ({
 			id: index,
 			name: file.name,
 			size: format_file_size(file.size),
 			type: get_file_type(file),
 			last_modified: new Date(file.lastModified).toLocaleString(),
-			size_bytes: file.size
+			size_bytes: file.size,
 		}))
+		drag_over_multiple = false
 	}
+}
 
-	const clear_multiple_files = () => {
-		multiple_files = null
-		multiple_files_meta = []
-		multiple_files_error = null
-		if (multiple_files_input) {
-			multiple_files_input.value = ''
-		}
+// Calculate total size for multiple files
+$effect(() => {
+	if (multiple_files_meta.length > 0) {
+		const total_bytes = multiple_files_meta.reduce((sum, file) => sum + file.size_bytes, 0)
+		console.log(`Total size: ${format_file_size(total_bytes)} for ${multiple_files_meta.length} files`)
 	}
-
-	// Drag and drop handlers
-	const handle_drag_over = (e: DragEvent, target: 'single' | 'multiple') => {
-		e.preventDefault()
-		e.stopPropagation()
-		if (target === 'single') drag_over_single = true
-		else drag_over_multiple = true
-	}
-
-	const handle_drag_leave = (e: DragEvent, target: 'single' | 'multiple') => {
-		e.preventDefault()
-		e.stopPropagation()
-		if (target === 'single') drag_over_single = false
-		else drag_over_multiple = false
-	}
-
-	const handle_drop = (e: DragEvent, target: 'single' | 'multiple') => {
-		e.preventDefault()
-		e.stopPropagation()
-
-		const dt = e.dataTransfer
-		if (!dt || !dt.files || dt.files.length === 0) return
-
-		const files = dt.files
-
-		if (target === 'single' && files.length === 1) {
-			const file = files[0]
-			single_file = file
-			single_file_error = null
-			single_file_meta = {
-				name: file.name,
-				size: format_file_size(file.size),
-				type: get_file_type(file),
-				last_modified: new Date(file.lastModified).toLocaleString(),
-				size_bytes: file.size
-			}
-			drag_over_single = false
-		} else if (target === 'multiple') {
-			multiple_files = files
-			multiple_files_error = null
-			multiple_files_meta = Array.from(files).map((file, index) => ({
-				id: index,
-				name: file.name,
-				size: format_file_size(file.size),
-				type: get_file_type(file),
-				last_modified: new Date(file.lastModified).toLocaleString(),
-				size_bytes: file.size
-			}))
-			drag_over_multiple = false
-		}
-	}
-
-	// Calculate total size for multiple files
-	$effect(() => {
-		if (multiple_files_meta.length > 0) {
-			const total_bytes = multiple_files_meta.reduce((sum, file) => sum + file.size_bytes, 0)
-			console.log(`Total size: ${format_file_size(total_bytes)} for ${multiple_files_meta.length} files`)
-		}
-	})
+})
 </script>
 
 <div class="min-h-screen bg-gray-50 px-4 py-8">

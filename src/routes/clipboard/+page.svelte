@@ -1,50 +1,54 @@
 <script lang="ts">
-	import { browser } from '$app/environment'
+import { browser } from "$app/environment"
 
-	let { children } = $props()
+let { children } = $props()
 
-	// Simple state
-	let status_msg = $state('Ready')
-	let copied_text = $state('')
-	let pasted_text = $state('')
+// Simple state
+let status_msg = $state("Ready")
+let copied_text = $state("")
+let pasted_text = $state("")
 
-	// Copy to clipboard - main function
-	const copy_text = async (text: string) => {
-		if (!browser) {
-			return
-		}
-
-		try {
-			await navigator.clipboard.writeText(text)
-			copied_text = text
-			status_msg = 'Copied!'
-			setTimeout(() => (status_msg = 'Ready'), 1500)
-		} catch (err) {
-			status_msg = 'Copy failed'
-			console.error(err)
-		}
+// Copy to clipboard - main function
+const copy_text = async (text: string) => {
+	if (!browser) {
+		return
 	}
 
-	// Paste from clipboard - main function
-	const paste_text = async () => {
-		if (!browser) {
-			return
-		}
+	try {
+		await navigator.clipboard.writeText(text)
+		copied_text = text
+		status_msg = "Copied!"
+		setTimeout(() => {
+			status_msg = "Ready"
+		}, 1500)
+	} catch (err) {
+		status_msg = "Copy failed"
+		console.error(err)
+	}
+}
 
-		try {
-			const text = await navigator.clipboard.readText()
-			pasted_text = text
-			status_msg = 'Pasted!'
-			setTimeout(() => (status_msg = 'Ready'), 1500)
-		} catch (err) {
-			status_msg = 'Paste failed (needs permission)'
-			console.error(err)
-		}
+// Paste from clipboard - main function
+const paste_text = async () => {
+	if (!browser) {
+		return
 	}
 
-	// Quick copy examples
-	const copy_hello = () => copy_text('Hello World!')
-	const copy_url = () => copy_text(window.location.href)
+	try {
+		const text = await navigator.clipboard.readText()
+		pasted_text = text
+		status_msg = "Pasted!"
+		setTimeout(() => {
+			status_msg = "Ready"
+		}, 1500)
+	} catch (err) {
+		status_msg = "Paste failed (needs permission)"
+		console.error(err)
+	}
+}
+
+// Quick copy examples
+const copy_hello = () => copy_text("Hello World!")
+const copy_url = () => copy_text(window.location.href)
 </script>
 
 <div class="mx-auto max-w-2xl space-y-6 p-8">

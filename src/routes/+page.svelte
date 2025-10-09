@@ -1,43 +1,43 @@
 <script lang="ts">
-	import TodoList from '$lib/components/TodoList.svelte'
-	import type { FilterType, TodoItem } from '$lib/components/types'
+import TodoList from "$lib/components/TodoList.svelte"
+import type { FilterType, TodoItem } from "$lib/components/types"
 
-	let new_todo = $state<TodoItem>({
-		id: 1,
-		text: '',
-		done: false
-	})
+let new_todo = $state<TodoItem>({
+	id: 1,
+	text: "",
+	done: false,
+})
 
-	let todos = $state<TodoItem[]>([])
+let todos = $state<TodoItem[]>([])
 
-	let active_filter = $state<FilterType>('all')
-	let filtered_todos = $derived.by(() => {
-		if (active_filter === 'todo') {
-			return todos.filter((item) => !item.done)
-		}
-		if (active_filter === 'done') {
-			return todos.filter((item) => item.done)
-		}
-		return todos
-	})
-
-	// $inspect(new_todo.text)
-	let add_todo = () => {
-		// TODO text needs to not be empty
-		todos.push({ ...new_todo })
-		new_todo.id += 1
-		new_todo.text = ''
+let active_filter = $state<FilterType>("all")
+let filtered_todos = $derived.by(() => {
+	if (active_filter === "todo") {
+		return todos.filter((item) => !item.done)
 	}
-
-	let remove_todo = (id: number) => {
-		let index = todos.findIndex((item) => item.id === id)
-		todos.splice(index, 1)
+	if (active_filter === "done") {
+		return todos.filter((item) => item.done)
 	}
+	return todos
+})
 
-	let toggle_todo = (id: number) => {
-		let index = todos.findIndex((item) => item.id === id)
-		todos[index].done = !todos[index].done
-	}
+// $inspect(new_todo.text)
+let add_todo = () => {
+	// TODO text needs to not be empty
+	todos.push({ ...new_todo })
+	new_todo.id += 1
+	new_todo.text = ""
+}
+
+let remove_todo = (id: number) => {
+	let index = todos.findIndex((item) => item.id === id)
+	todos.splice(index, 1)
+}
+
+let toggle_todo = (id: number) => {
+	let index = todos.findIndex((item) => item.id === id)
+	todos[index].done = !todos[index].done
+}
 </script>
 
 {#snippet choose_filter(filter_name: FilterType)}

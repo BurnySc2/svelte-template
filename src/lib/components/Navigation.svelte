@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/state'
-	import { resolve } from '$app/paths'
+import { resolve } from "$app/paths"
+import { page } from "$app/state"
 
-	const isActive = (path: string) => page.url.pathname.includes(path)
+const isActive = (path: string) => page.url.pathname.includes(path)
 </script>
 
 <nav class="bg-gray-800 p-4 text-white">

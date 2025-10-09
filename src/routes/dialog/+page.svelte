@@ -1,29 +1,29 @@
 <script lang="ts">
-	let { children } = $props()
+let { children } = $props()
 
-	let show_dialog = $state(false)
-	let action_message = $state('')
+let show_dialog = $state(false)
+let action_message = $state("")
 
-	const open_dialog = () => {
-		show_dialog = true
+const open_dialog = () => {
+	show_dialog = true
+}
+
+const close_dialog = (event?: MouseEvent | KeyboardEvent) => {
+	if (event instanceof KeyboardEvent && event.key === "Escape") {
+		show_dialog = false
+		return
 	}
-
-	const close_dialog = (event?: MouseEvent | KeyboardEvent) => {
-		if (event instanceof KeyboardEvent && event.key === 'Escape') {
-			show_dialog = false
-			return
-		}
-		if (event instanceof MouseEvent && (event.target as HTMLElement).classList.contains('fixed')) {
-			show_dialog = false
-		} else if (!event) {
-			show_dialog = false
-		}
+	if (event instanceof MouseEvent && (event.target as HTMLElement).classList.contains("fixed")) {
+		show_dialog = false
+	} else if (!event) {
+		show_dialog = false
 	}
+}
 
-	const confirm_action = () => {
-		action_message = 'Action confirmed!'
-		close_dialog()
-	}
+const confirm_action = () => {
+	action_message = "Action confirmed!"
+	close_dialog()
+}
 </script>
 
 <h1 class="p-8 text-2xl font-bold">Dialog Example</h1>

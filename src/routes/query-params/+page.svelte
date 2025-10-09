@@ -1,45 +1,45 @@
 <script lang="ts">
-	import { page } from '$app/state'
+import { page } from "$app/state"
 
-	// Parse query parameters from URL
-	let query_params = $derived.by(() => {
-		const url = new URL(page.url)
-		const params = new URLSearchParams(url.search)
-		const result: Record<string, string> = {}
-		
-		for (const [key, value] of params) {
-			result[key] = value
-		}
-		
-		return result
-	})
+// Parse query parameters from URL
+let query_params = $derived.by(() => {
+	const url = new URL(page.url)
+	const params = new URLSearchParams(url.search)
+	const result: Record<string, string> = {}
 
-	// Input field state
-	let new_key = $state('')
-	let new_value = $state('')
-
-	// Add query parameter
-	let add_param = () => {
-		if (new_key.trim()) {
-			const url = new URL(page.url)
-			url.searchParams.set(new_key.trim(), new_value.trim() || '')
-			window.location.href = url.toString()
-		}
-		new_key = ''
-		new_value = ''
+	for (const [key, value] of params) {
+		result[key] = value
 	}
 
-	// Remove query parameter
-	let remove_param = (key: string) => {
+	return result
+})
+
+// Input field state
+let new_key = $state("")
+let new_value = $state("")
+
+// Add query parameter
+let add_param = () => {
+	if (new_key.trim()) {
 		const url = new URL(page.url)
-		url.searchParams.delete(key)
+		url.searchParams.set(new_key.trim(), new_value.trim() || "")
 		window.location.href = url.toString()
 	}
+	new_key = ""
+	new_value = ""
+}
 
-	// Format JSON for display
-	let formatted_json = $derived.by(() => {
-		return JSON.stringify(query_params, null, 2)
-	})
+// Remove query parameter
+let remove_param = (key: string) => {
+	const url = new URL(page.url)
+	url.searchParams.delete(key)
+	window.location.href = url.toString()
+}
+
+// Format JSON for display
+let formatted_json = $derived.by(() => {
+	return JSON.stringify(query_params, null, 2)
+})
 </script>
 
 <main class="mx-auto flex max-w-2xl flex-col items-center gap-6 p-6">

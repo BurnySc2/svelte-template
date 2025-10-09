@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { my_counter_state, my_counter_writable } from '$lib/persistent-storage.svelte'
-	import { my_temporary_counter } from '$lib/temporary-storage.svelte'
-	import CounterState from '$lib/components/counter-state/CounterState.svelte'
-	import CounterWritable from '$lib/components/counter-writeable/CounterWritable.svelte'
+import CounterState from "$lib/components/counter-state/CounterState.svelte"
+import CounterWritable from "$lib/components/counter-writeable/CounterWritable.svelte"
+import { my_counter_state, my_counter_writable } from "$lib/persistent-storage.svelte"
+import { my_temporary_counter } from "$lib/temporary-storage.svelte"
 
-	// Only start rendering when javascript has loaded
-	// eslint-disable-next-line svelte/prefer-writable-derived
-	let page_ready = $state(false)
-	$effect.pre(() => {
-		page_ready = true
-	})
+// Only start rendering when javascript has loaded
+// eslint-disable-next-line svelte/prefer-writable-derived
+let page_ready = $state(false)
+$effect.pre(() => {
+	page_ready = true
+})
 </script>
 
 {#if page_ready}

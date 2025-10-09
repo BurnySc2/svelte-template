@@ -1,33 +1,33 @@
 <script lang="ts">
-	let { children } = $props()
-	let auth_status: { authenticated: boolean; user: string | null } = $state({ authenticated: false, user: null })
-	let is_loading = $state(true)
+let { children } = $props()
+let auth_status: { authenticated: boolean; user: string | null } = $state({ authenticated: false, user: null })
+let is_loading = $state(true)
 
-	// Async function for loading auth status
-	const on_load_request = async () => {
-		try {
-			const response = await fetch('https://burnysc2.xyz/login/api_status', {
-				// Ensures cookies are sent with the request
-				credentials: 'include'
-			})
+// Async function for loading auth status
+const on_load_request = async () => {
+	try {
+		const response = await fetch("https://burnysc2.xyz/login/api_status", {
+			// Ensures cookies are sent with the request
+			credentials: "include",
+		})
 
-			if (!response.ok) {
-				throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-			}
-
-			auth_status = await response.json()
-		} catch (error) {
-			console.error('Auth status fetch failed:', error)
-			auth_status = { authenticated: false, user: null }
-		} finally {
-			is_loading = false
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${response.statusText}`)
 		}
-	}
 
-	// Trigger load when component mounts using $effect
-	$effect(() => {
-		on_load_request()
-	})
+		auth_status = await response.json()
+	} catch (error) {
+		console.error("Auth status fetch failed:", error)
+		auth_status = { authenticated: false, user: null }
+	} finally {
+		is_loading = false
+	}
+}
+
+// Trigger load when component mounts using $effect
+$effect(() => {
+	on_load_request()
+})
 </script>
 
 <div class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">

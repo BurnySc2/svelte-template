@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { my_counter_state } from '$lib/persistent-storage.svelte'
+import { my_counter_state } from "$lib/persistent-storage.svelte"
 </script>
 
 <div

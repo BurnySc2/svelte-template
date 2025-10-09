@@ -1,42 +1,41 @@
 <script lang="ts">
-  type Props = {
-    data: {
-      title: string
-      initialFact: string
-      timestamp: string
-      loading: boolean
-      dogFact: string | null
-    }
-  }
+type Props = {
+	data: {
+		title: string
+		initialFact: string
+		timestamp: string
+		loading: boolean
+		dogFact: string | null
+	}
+}
 
-  let { data }: Props = $props()
+let { data }: Props = $props()
 
-  console.log(data);
-  
+console.log(data)
 
-  let loading = $state(data.loading)
-  let dogFact = $state(data.dogFact)
-  let error = $state<string | null>(null)
+let loading = $state(data.loading)
+let dogFact = $state(data.dogFact)
+let error = $state<string | null>(null)
 
-  async function fetchDogFact() {
-    loading = true
-    error = null
-    
-    try {
-      const response = await fetch('https://dogapi.dog/api/v2/facts?limit=1')
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const result = await response.json()
-      dogFact = result.data[0].attributes.body
-    } catch (err) {
-      error = err instanceof Error ? err.message : 'Failed to fetch dog fact'
-    } finally {
-      loading = false
-    }
-  }
+async function fetchDogFact() {
+	loading = true
+	error = null
+
+	try {
+		const response = await fetch("https://dogapi.dog/api/v2/facts?limit=1")
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`)
+		}
+
+		const result = await response.json()
+		dogFact = result.data[0].attributes.body
+	} catch (err) {
+		error = err instanceof Error ? err.message : "Failed to fetch dog fact"
+	} finally {
+		loading = false
+	}
+}
 </script>
 
 <div class="container mx-auto p-8">

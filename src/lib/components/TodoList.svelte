@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { TodoItem } from './types'
-	import { fly } from 'svelte/transition'
-	import { flip } from 'svelte/animate'
+import { flip } from "svelte/animate"
+import { fly } from "svelte/transition"
+import type { TodoItem } from "./types"
 
-	let {
-		todos,
-		remove_todo,
-		toggle_todo
-	}: { todos: TodoItem[]; remove_todo: (id: number) => void; toggle_todo: (id: number) => void } = $props()
+let {
+	todos,
+	remove_todo,
+	toggle_todo,
+}: { todos: TodoItem[]; remove_todo: (id: number) => void; toggle_todo: (id: number) => void } = $props()
 </script>
 
 {#snippet todo_item(id: number, text: string, done: boolean)}
