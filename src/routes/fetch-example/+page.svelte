@@ -2,22 +2,20 @@
 type Props = {
 	data: {
 		title: string
-		initialFact: string
+		initial_fact: string
 		timestamp: string
 		loading: boolean
-		dogFact: string | null
+		dog_fact: string | null
 	}
 }
 
 let { data }: Props = $props()
 
-console.log(data)
-
 let loading = $state(data.loading)
-let dogFact = $state(data.dogFact)
+let dog_fact = $state(data.dog_fact)
 let error = $state<string | null>(null)
 
-async function fetchDogFact() {
+async function fetch_dog_fact() {
 	loading = true
 	error = null
 
@@ -29,7 +27,7 @@ async function fetchDogFact() {
 		}
 
 		const result = await response.json()
-		dogFact = result.data[0].attributes.body
+		dog_fact = result.data[0].attributes.body
 	} catch (err) {
 		error = err instanceof Error ? err.message : "Failed to fetch dog fact"
 	} finally {
@@ -43,13 +41,13 @@ async function fetchDogFact() {
   
   <div class="bg-gray-100 p-6 rounded-lg mb-6">
     <h2 class="text-xl font-semibold mb-2">Initial Data</h2>
-    <p class="mb-2"><strong>Fake Fact:</strong> {data.initialFact}</p>
+    <p class="mb-2"><strong>Fake Fact:</strong> {data.initial_fact}</p>
     <p><strong>Loaded at:</strong> {data.timestamp}</p>
   </div>
 
   <div class="mb-6">
-    <button 
-      onclick={fetchDogFact}
+    <button
+      onclick={fetch_dog_fact}
       disabled={loading}
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
     >
@@ -57,10 +55,10 @@ async function fetchDogFact() {
     </button>
   </div>
 
-  {#if dogFact}
+  {#if dog_fact}
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
       <h3 class="font-semibold mb-2">Dog Fact:</h3>
-      <p>{dogFact}</p>
+      <p>{dog_fact}</p>
     </div>
   {/if}
 
