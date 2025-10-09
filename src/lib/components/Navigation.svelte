@@ -35,5 +35,9 @@
 			href={resolve('/download')}
 			class="transition-colors hover:text-gray-300 {isActive('/download') ? 'font-bold' : ''}">Download</a
 		>
+		<a
+			href={resolve('/query-params')}
+			class="transition-colors hover:text-gray-300 {isActive('/query-params') ? 'font-bold' : ''}">Query Params</a
+		>
 	</div>
 </nav>
