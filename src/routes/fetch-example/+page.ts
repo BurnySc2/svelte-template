@@ -1,6 +1,6 @@
 export async function load() {
 	// Simulate fake data on first load
-	const fakeData = {
+	const fake_data = {
 		title: "Fetch Example",
 		initial_fact: "This is a fake fact loaded on first render!",
 		timestamp: new Date().toISOString(),
@@ -8,5 +8,5 @@ export async function load() {
 		dog_fact: null as string | null,
 	}
 
-	return fakeData
+	return fake_data
 }

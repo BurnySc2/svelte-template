@@ -5,7 +5,6 @@ import { my_counter_state, my_counter_writable } from "$lib/persistent-storage.s
 import { my_temporary_counter } from "$lib/temporary-storage.svelte"
 
 // Only start rendering when javascript has loaded
-// eslint-disable-next-line svelte/prefer-writable-derived
 let page_ready = $state(false)
 $effect.pre(() => {
 	page_ready = true

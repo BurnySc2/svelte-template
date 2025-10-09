@@ -2,7 +2,7 @@
 import Chart from "chart.js/auto"
 
 // Sample data for line graph: temperature over days
-const tempData = [
+const temp_data = [
 	{ day: "Mon", temp: 22, condition: "Sunny" },
 	{ day: "Tue", temp: 25, condition: "Cloudy" },
 	{ day: "Wed", temp: 20, condition: "Rainy" },
@@ -11,7 +11,7 @@ const tempData = [
 ]
 
 // Sample data for bar graph: fruit sales
-const fruitData = [
+const fruit_data = [
 	{ fruit: "Apple", sales: 120, note: "Popular choice" },
 	{ fruit: "Banana", sales: 80, note: "Imported" },
 	{ fruit: "Orange", sales: 150, note: "Seasonal peak" },
@@ -19,21 +19,21 @@ const fruitData = [
 	{ fruit: "Kiwi", sales: 60, note: "Exotic" },
 ]
 
-let lineChart: Chart | null = null
-let barChart: Chart | null = null
+let line_chart: Chart | null = null
+let bar_chart: Chart | null = null
 
 $effect(() => {
 	// Line chart: Temperature over days
 	const lineCtx = document.getElementById("lineCanvas") as HTMLCanvasElement
-	if (lineCtx && !lineChart) {
-		lineChart = new Chart(lineCtx, {
+	if (lineCtx && !line_chart) {
+		line_chart = new Chart(lineCtx, {
 			type: "line",
 			data: {
-				labels: tempData.map((d) => d.day),
+				labels: temp_data.map((d) => d.day),
 				datasets: [
 					{
 						label: "Temperature (°C)",
-						data: tempData.map((d) => d.temp),
+						data: temp_data.map((d) => d.temp),
 						borderColor: "red",
 						backgroundColor: "rgba(255, 0, 0, 0.1)",
 						borderWidth: 3,
@@ -50,11 +50,11 @@ $effect(() => {
 					tooltip: {
 						callbacks: {
 							title: (context) => {
-								const point = tempData[context[0].dataIndex]
+								const point = temp_data[context[0].dataIndex]
 								return `Day: ${point.day}`
 							},
 							label: (context) => {
-								const point = tempData[context.dataIndex]
+								const point = temp_data[context.dataIndex]
 								return [`Temperature: ${point.temp}°C`, `Condition: ${point.condition}`]
 							},
 						},
@@ -73,15 +73,15 @@ $effect(() => {
 
 	// Bar chart: Fruit sales
 	const barCtx = document.getElementById("barCanvas") as HTMLCanvasElement
-	if (barCtx && !barChart) {
-		barChart = new Chart(barCtx, {
+	if (barCtx && !bar_chart) {
+		bar_chart = new Chart(barCtx, {
 			type: "bar",
 			data: {
-				labels: fruitData.map((d) => d.fruit),
+				labels: fruit_data.map((d) => d.fruit),
 				datasets: [
 					{
 						label: "Sales",
-						data: fruitData.map((d) => d.sales),
+						data: fruit_data.map((d) => d.sales),
 						backgroundColor: "orange",
 						borderRadius: 3,
 						borderSkipped: false,
@@ -95,11 +95,11 @@ $effect(() => {
 					tooltip: {
 						callbacks: {
 							title: (context) => {
-								const item = fruitData[context[0].dataIndex]
+								const item = fruit_data[context[0].dataIndex]
 								return `Fruit: ${item.fruit}`
 							},
 							label: (context) => {
-								const item = fruitData[context.dataIndex]
+								const item = fruit_data[context.dataIndex]
 								return [`Sales: ${item.sales}`, `Note: ${item.note}`]
 							},
 						},
@@ -116,13 +116,13 @@ $effect(() => {
 
 	// Cleanup function
 	return () => {
-		if (lineChart) {
-			lineChart.destroy()
-			lineChart = null
+		if (line_chart) {
+			line_chart.destroy()
+			line_chart = null
 		}
-		if (barChart) {
-			barChart.destroy()
-			barChart = null
+		if (bar_chart) {
+			bar_chart.destroy()
+			bar_chart = null
 		}
 	}
 })

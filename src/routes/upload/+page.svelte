@@ -3,7 +3,6 @@ let { children } = $props()
 
 // Single file upload state
 let single_file_input = $state<HTMLInputElement | null>(null)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let single_file = $state<File | null>(null)
 let single_file_meta = $state<{
 	name: string
@@ -16,7 +15,6 @@ let single_file_error = $state<string | null>(null)
 
 // Multiple files upload state
 let multiple_files_input = $state<HTMLInputElement | null>(null)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let multiple_files = $state<FileList | null>(null)
 let multiple_files_meta = $state<
 	{
