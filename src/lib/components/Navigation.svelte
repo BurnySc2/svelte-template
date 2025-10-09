@@ -39,5 +39,9 @@
 			href={resolve('/query-params')}
 			class="transition-colors hover:text-gray-300 {isActive('/query-params') ? 'font-bold' : ''}">Query Params</a
 		>
+		<a
+			href={resolve('/fetch-example')}
+			class="transition-colors hover:text-gray-300 {isActive('/fetch-example') ? 'font-bold' : ''}">Fetch Example</a
+		>
 	</div>
 </nav>
