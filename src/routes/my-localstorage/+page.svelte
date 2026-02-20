@@ -1,8 +1,8 @@
 <script lang="ts">
 import CounterState from "$lib/components/counter-state/CounterState.svelte"
 import CounterWritable from "$lib/components/counter-writeable/CounterWritable.svelte"
-import { my_counter_state, my_counter_writable } from "$lib/persistent-storage.svelte"
-import { my_temporary_counter } from "$lib/temporary-storage.svelte"
+import { perma_state } from "$lib/persistent-storage.svelte"
+import { temp_state } from "$lib/temporary-storage.svelte"
 
 // Only start rendering when javascript has loaded
 let page_ready = $state(false)
@@ -37,7 +37,7 @@ $effect.pre(() => {
 						<button
 							class="transform rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 focus:outline-none active:bg-orange-800"
 							onclick={() => {
-								my_temporary_counter.value += 1
+								temp_state.my_temporary_counter += 1
 							}}
 						>
 							<span class="flex items-center gap-2">
@@ -50,7 +50,7 @@ $effect.pre(() => {
 
 						<div class="text-center">
 							<div class="rounded-lg bg-orange-50 px-4 py-2 text-3xl font-bold text-orange-600">
-								Value: {my_temporary_counter.value}
+								Value: {temp_state.my_temporary_counter}
 							</div>
 							<p class="mt-1 text-sm text-gray-500">Lost on page refresh</p>
 						</div>
@@ -73,7 +73,7 @@ $effect.pre(() => {
 						<button
 							class="transform rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none active:bg-blue-800"
 							onclick={() => {
-								my_counter_state.value += 1
+								perma_state.data.my_counter_state += 1
 							}}
 						>
 							<span class="flex items-center gap-2">
@@ -86,7 +86,7 @@ $effect.pre(() => {
 
 						<div class="text-center">
 							<div class="rounded-lg bg-blue-50 px-4 py-2 text-3xl font-bold text-blue-600">
-								Value: {my_counter_state.value}
+								Value: {perma_state.data.my_counter_state}
 							</div>
 							<p class="mt-1 text-sm text-gray-500">Persisted in localStorage</p>
 						</div>
@@ -113,8 +113,7 @@ $effect.pre(() => {
 					<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
 						<button
 							class="transform rounded-lg bg-green-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-green-700 focus:ring-4 focus:ring-green-300 focus:outline-none active:bg-green-800"
-							onclick={() => {
-								$my_counter_writable += 1
+							onclick={() => {																perma_state.data.my_counter_writeable += 1
 							}}
 						>
 							<span class="flex items-center gap-2">
@@ -127,7 +126,7 @@ $effect.pre(() => {
 
 						<div class="text-center">
 							<div class="rounded-lg bg-green-50 px-4 py-2 text-3xl font-bold text-green-600">
-								Value: {$my_counter_writable}
+								Value: {								perma_state.data.my_counter_writeable}
 							</div>
 							<p class="mt-1 text-sm text-gray-500">Synced via writable store</p>
 						</div>

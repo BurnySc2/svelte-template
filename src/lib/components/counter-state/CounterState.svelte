@@ -1,5 +1,5 @@
 <script lang="ts">
-import { my_counter_state } from "$lib/persistent-storage.svelte"
+import { perma_state } from "$lib/persistent-storage.svelte"
 </script>
 
 <div
@@ -7,7 +7,7 @@ import { my_counter_state } from "$lib/persistent-storage.svelte"
 >
 	<div>
 		<div class="mb-1 text-2xl font-bold text-blue-600">
-			{my_counter_state.value}
+			{perma_state.data.my_counter_state}
 		</div>
 		<div class="text-sm text-gray-500">Value from CounterState component</div>
 	</div>
