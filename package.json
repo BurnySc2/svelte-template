@@ -27,6 +27,7 @@
 		"chart.js": "^4.5.0",
 		"globals": "^16.0.0",
 		"openapi-typescript": "^7.9.1",
+		"peerjs": "^1.5.5",
 		"playwright": "^1.53.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",

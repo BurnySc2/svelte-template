@@ -27,21 +27,25 @@ const is_active = (path: string) => page.url.pathname.includes(path)
 		<a href={resolve('/charts')} class="transition-colors hover:text-gray-300 {is_active('/charts') ? 'font-bold' : ''}"
 			>Charts</a
 		>
-			<a
-				href={resolve('/clipboard')}
-				class="transition-colors hover:text-gray-300 {is_active('/clipboard') ? 'font-bold' : ''}">Clipboard</a
-			>
-			<a
-				href={resolve('/download')}
-				class="transition-colors hover:text-gray-300 {is_active('/download') ? 'font-bold' : ''}">Download</a
-			>
-			<a
-				href={resolve('/query-params')}
-				class="transition-colors hover:text-gray-300 {is_active('/query-params') ? 'font-bold' : ''}">Query Params</a
-			>
-			<a
-				href={resolve('/fetch-example')}
-				class="transition-colors hover:text-gray-300 {is_active('/fetch-example') ? 'font-bold' : ''}">Fetch Example</a
-			>
+		<a
+			href={resolve('/clipboard')}
+			class="transition-colors hover:text-gray-300 {is_active('/clipboard') ? 'font-bold' : ''}">Clipboard</a
+		>
+		<a
+			href={resolve('/download')}
+			class="transition-colors hover:text-gray-300 {is_active('/download') ? 'font-bold' : ''}">Download</a
+		>
+		<a
+			href={resolve('/query-params')}
+			class="transition-colors hover:text-gray-300 {is_active('/query-params') ? 'font-bold' : ''}">Query Params</a
+		>
+		<a
+			href={resolve('/fetch-example')}
+			class="transition-colors hover:text-gray-300 {is_active('/fetch-example') ? 'font-bold' : ''}">Fetch Example</a
+		>
+		<a
+			href={resolve('/peer-to-peer')}
+			class="transition-colors hover:text-gray-300 {is_active('/peer-to-peer') ? 'font-bold' : ''}">Peer-to-peer</a
+		>
 	</div>
 </nav>
