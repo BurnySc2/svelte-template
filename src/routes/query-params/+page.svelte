@@ -4,13 +4,10 @@ import { page } from "$app/state"
 // Parse query parameters from URL
 let query_params = $derived.by(() => {
     const url = new URL(page.url)
-    const params = new URLSearchParams(url.search)
     const result: Record<string, string> = {}
-
-    for (const [key, value] of params) {
+    for (const [key, value] of url.searchParams) {
         result[key] = value
     }
-
     return result
 })
 
