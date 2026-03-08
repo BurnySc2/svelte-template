@@ -21,6 +21,7 @@ let add_param = () => {
         const url = new URL(page.url)
         url.searchParams.set(new_key.trim(), new_value.trim() || "")
         window.location.href = url.toString()
+        // Prefer: replaceState(url, "")
     }
     new_key = ""
     new_value = ""
@@ -31,6 +32,7 @@ let remove_param = (key: string) => {
     const url = new URL(page.url)
     url.searchParams.delete(key)
     window.location.href = url.toString()
+    // Prefer: replaceState(url, "")
 }
 
 // Format JSON for display
