@@ -1,7 +1,7 @@
 <script lang="ts">
 import { flip } from "svelte/animate"
 import { fly } from "svelte/transition"
-import type { TodoItem } from "./types"
+import type { TodoItem } from "$lib/types/todo"
 
 let {
     todos,

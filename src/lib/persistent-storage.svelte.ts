@@ -1,11 +1,9 @@
 import { browser } from "$app/environment"
+import { CounterDataSchema, default_counter_data, type TPermaState } from "./types/persistent-storage"
 
-export const perma_state = $state({
+export const perma_state: TPermaState = $state({
     loading: true,
-    data: {
-        my_counter_state: 0,
-        my_counter_writeable: 0,
-    },
+    data: { ...default_counter_data },
 })
 
 $effect.root(() => {
@@ -20,10 +18,8 @@ $effect.root(() => {
             const data = localStorage.getItem("my_perma_state")
             if (data !== null) {
                 perma_state.data = {
-                    // Set default
                     ...perma_state.data,
-                    // Set loaded values
-                    ...JSON.parse(data),
+                    ...CounterDataSchema.parse(JSON.parse(data)),
                 }
             }
         }

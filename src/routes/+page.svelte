@@ -1,6 +1,6 @@
 <script lang="ts">
 import TodoList from "$lib/components/TodoList.svelte"
-import type { FilterType, TodoItem } from "$lib/components/types"
+import type { FilterType, TodoItem } from "$lib/types/todo"
 
 let new_todo = $state<TodoItem>({
     id: 1,
