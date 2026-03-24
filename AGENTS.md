@@ -157,10 +157,10 @@ src/
 | **Components** | PascalCase | `TodoList.svelte`, `Navigation.svelte` |
 | **Component Folders** | kebab-case | `counter-state/`, `counter-writeable/` |
 | **Routes** | kebab-case | `/my-localstorage`, `/peer-to-peer` |
-| **Variables/Functions** | camelCase | `newTodo`, `addTodo()`, `activeFilter` |
-| **State (Svelte 5)** | camelCase with descriptive names | `todos`, `filteredTodos`, `activeFilter` |
-| **Props** | camelCase | `title`, `items`, `onSelect` |
-| **Snippets** | camelCase | `chooseFilter`, `renderItem` |
+| **Variables/Functions** | snake_case | `new_todo`, `add_todo()`, `active_filter` |
+| **State (Svelte 5)** | snake_case with descriptive names | `todos`, `filtered_todos`, `active_filter` |
+| **Props** | snake_case | `title`, `items`, `on_select` |
+| **Snippets** | snake_case | `choose_filter`, `render_item` |
 | **Types/Interfaces** | PascalCase | `TodoItem`, `FilterType` |
 | **Constants** | SCREAMING_SNAKE_CASE | `MAX_ITEMS`, `DEFAULT_TITLE` |
 | **CSS Classes** | kebab-case (Tailwind) | `bg-blue-600`, `text-white` |
